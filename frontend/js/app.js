@@ -1,22 +1,27 @@
 const btn = document.getElementById("btnAnalisis");
-const input = document.getElementById("inputData");
+const inputN = document.getElementById("inputN");
 const hasilDiv = document.getElementById("hasil");
 const loading = document.getElementById("loading");
 
 btn.addEventListener("click", jalankan);
-input.addEventListener("keydown", e => {
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
-    jalankan();
+
+function generateRandomData(n) {
+  const data = [];
+  for (let i = 0; i < n; i++) {
+    data.push(Math.floor(Math.random() * 100) + 1);
   }
-});
+  return data;
+}
 
 async function jalankan() {
-  const raw = input.value.trim();
-  if (!raw) return alert("Masukkan data terlebih dahulu");
+  const n = parseInt(inputN.value);
 
-  const data = raw.split(",").map(x => Number(x.trim()));
-  if (data.some(isNaN)) return alert("Input harus angka");
+  if (!n || n <= 0) {
+    alert("Masukkan nilai n yang valid");
+    return;
+  }
+
+  const data = generateRandomData(n);
 
   loading.classList.remove("hidden");
   hasilDiv.classList.add("hidden");
@@ -29,9 +34,15 @@ async function jalankan() {
     });
 
     const json = await res.json();
+
+    if (json.status !== "berhasil") {
+      throw new Error(json.pesan);
+    }
+
     tampilkan(json);
-  } catch {
-    alert("Gagal menghubungi backend");
+
+  } catch (err) {
+    alert("Gagal menghubungi backend:\n" + err.message);
   } finally {
     loading.classList.add("hidden");
   }
@@ -47,20 +58,19 @@ function tampilkan(res) {
 
   hasilDiv.innerHTML = `
     <h2>📊 Hasil Analisis</h2>
-    <div class="result-item">Jumlah Data: <b>${res.jumlahData}</b></div>
+    <div class="result-item">Jumlah Data (n): <b>${res.jumlahData}</b></div>
     <div class="result-item">⏱ Iteratif: <b>${it.toFixed(2)} µs</b></div>
     <div class="result-item">⏱ Rekursif: <b>${rek.toFixed(2)} µs</b></div>
     <div class="winner">🏆 Lebih Cepat: ${winner}</div>
   `;
 
   hasilDiv.classList.remove("hidden");
-
   tampilkanGrafik(it, rek);
 }
 
 function tampilkanGrafik(iteratif, rekursif) {
   const card = document.getElementById("grafikCard");
-  const ctx = document.getElementById("grafikWaktu").getContext("2d");
+  const ctx = document.getElementById("grafikWaktu");
 
   card.classList.remove("hidden");
 
@@ -73,26 +83,14 @@ function tampilkanGrafik(iteratif, rekursif) {
       datasets: [{
         label: "Waktu Eksekusi (µs)",
         data: [iteratif, rekursif],
-        backgroundColor: ["#43c06d", "#ff6b6b"],
-        borderRadius: 10
+        backgroundColor: ["#43c06d", "#ff6b6b"]
       }]
     },
     options: {
       responsive: true,
-      animation: {
-        duration: 1200,
-        easing: "easeOutQuart"
-      },
       scales: {
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: "Mikrodetik (µs)"
-          }
-        }
+        y: { beginAtZero: true }
       }
     }
   });
 }
-
