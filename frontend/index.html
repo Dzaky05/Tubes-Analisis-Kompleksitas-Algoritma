@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Analisis Kompleksitas Algoritma</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="hero">
+  <h1>Analisis Kompleksitas Algoritma</h1>
+  <p>Perbandingan Iteratif vs Rekursif dalam Menghitung Modus</p>
+</header>
+
+<main class="container">
+  <section class="card">
+    <h2>📥 Masukkan Data</h2>
+    <p class="hint">Pisahkan angka dengan koma (contoh: 1, 2, 3, 2)</p>
+
+    <textarea id="inputData" placeholder="1, 2, 3, 4, 4"></textarea>
+
+    <button id="btnAnalisis">
+      🚀 Jalankan Analisis
+    </button>
+
+    <div id="loading" class="loading hidden"></div>
+  </section>
+
+  <section id="hasil" class="card hidden"></section>
+  <section id="grafikCard" class="card hidden">
+    <h2>📈 Grafik Perbandingan Waktu</h2>
+    <canvas id="grafikWaktu"></canvas>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/app.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
