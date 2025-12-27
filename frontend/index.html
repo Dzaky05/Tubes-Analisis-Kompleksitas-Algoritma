@@ -13,6 +13,8 @@
 </header>
 
 <main class="container">
+
+  <!-- INPUT -->
   <section class="card">
     <h2>📥 Masukkan Jumlah Data (n)</h2>
     <p class="hint">Contoh: 10, 100, 1000,...,10000</p>
@@ -29,12 +31,22 @@
     <div id="loading" class="loading hidden">⏳ Memproses...</div>
   </section>
 
+  <!-- HASIL -->
   <section id="hasil" class="card hidden"></section>
 
+  <!-- DATA ACAK -->
+  <section class="card hidden" id="dataCard">
+    <h2>🎲 Data Acak</h2>
+    <button id="btnToggleData">👁 Tampilkan Data</button>
+    <pre id="dataRandom" class="data-box hidden"></pre>
+  </section>
+
+  <!-- GRAFIK -->
   <section id="grafikCard" class="card hidden">
     <h2>📈 Grafik Perbandingan Waktu</h2>
     <canvas id="grafikWaktu"></canvas>
   </section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
