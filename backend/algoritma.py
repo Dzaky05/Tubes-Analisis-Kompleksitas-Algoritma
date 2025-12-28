@@ -4,19 +4,15 @@ import sys  # Import sys untuk mengatur limit rekursi
 
 # ===============================
 # PENGATURAN LIMIT REKURSI
-# ===============================
-# Agar n > 1000 tidak error, kita naikkan batas rekursi sistem
 sys.setrecursionlimit(2000) 
 
 # ===============================
 # GENERATE DATA RANDOM
-# ===============================
 def generate_data(n, batas_angka=10000):
     return [random.randint(1, batas_angka) for _ in range(n)]
 
 # ===============================
 # MODUS ITERATIF
-# ===============================
 def modusIteratif(data):
     if not data: return None
     frekuensi = {}
@@ -26,7 +22,6 @@ def modusIteratif(data):
 
 # ===============================
 # MODUS REKURSIF
-# ===============================
 def _hitungFrekuensi(data, index, frekuensi):
     # Base case: jika index sudah mencapai ujung data
     if index == len(data):
@@ -48,7 +43,6 @@ def modusRekursif(data):
 
 # ===============================
 # UKUR WAKTU EKSEKUSI
-# ===============================
 def ukur_waktu(fungsi, data):
     start = time.perf_counter()
     hasil = fungsi(data)
@@ -57,7 +51,6 @@ def ukur_waktu(fungsi, data):
 
 # ===============================
 # FUNGSI UTAMA
-# ===============================
 def hitung_modus_dari_n(n):
     data = generate_data(n)
 
@@ -80,8 +73,7 @@ def hitung_modus_dari_n(n):
     }
 
 # ===============================
-# TEST MANUAL
-# ===============================
+# TEST 
 if __name__ == "__main__":
     # Mencoba dengan n yang berbeda
     for n_test in [10, 100, 500, 1000]:
